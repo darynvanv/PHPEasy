@@ -3,6 +3,8 @@ PHP Easy is a framework that makes building PHP website a breeze. By handling al
 
 Please support my work: https://www.paypal.me/darynvanv
 
+[![Slack](https://bootstrap-slack.herokuapp.com/badge.svg)](https://bootstrap-slack.herokuapp.com/)
+
 ## Features
 PHPEasy has many features to help make the development process faster.
 
