@@ -3,18 +3,16 @@ PHP Easy is a framework that makes building PHP website a breeze. By handling al
 
 Please support my work: https://www.paypal.me/darynvanv
 
-[![State](https://img.shields.io/badge/Stage-Unfinished-red.svg)](#)[![Build](https://img.shields.io/badge/Build-B0.1-green.svg)](#)
+[![State](https://img.shields.io/badge/Stage-Unfinished-red.svg)](#)[![Build](https://img.shields.io/badge/Build-0.2-green.svg)](#)
 
 ## Features
 PHPEasy has many features to help make the development process faster.
 
 * Easily manage connections to a DataBase
 * Easily set or get data to or from a DataBase
-* Easily handle errors with our custom error reporting
-* Simplify the debugging process by compiling your code in an easy to use online interface
-* Manage your files with a web-based command line
 * Easily call functions to display info such as titles, text, headers and footers
-* Setup the config to fit your needs and level of error reporting
+* Setup the config to fit your needs
+* View the wiki for more info on setup and coding
 
 ## Wiki
 You can access the Wiki here : https://github.com/darynvanv/PHPEasy/wiki/PHPEasy-Wiki

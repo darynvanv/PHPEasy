@@ -1,12 +1,13 @@
 <?php
-require 'config.php';
+require '_packer.php';
 
-$Conn = new Connection;
+$Co = Connect($Conn, true);
 
-$Conn->Host = "localhost";
-$Conn->User = "root";
-$Conn->Password = "";
-$Conn->DB = "";
+print_r(Get($Co, "testable", array("name", "password"), array("`id` = 1"), 'Ec', 'Ez'));
 
-DBTestConnect($Conn);
+function Ec($S)
+{
+    echo $S;
+}
+
 ?>
