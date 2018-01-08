@@ -3,7 +3,7 @@ require '_packer.php';
 
 $Co = Connect($Conn, true);
 
-Del($Co, "testabsle", array("`name` = 'Daryn'"), 'Comp', 'Done Deleting Entries!', 'Fail', 'Unable to complete Task');
+echo read('log.txt', true);
 
 function Comp($var)
 {
