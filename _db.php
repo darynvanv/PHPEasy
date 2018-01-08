@@ -40,9 +40,28 @@ function Connect($C, $L)
     }
 }
 
+function Close($C, $L, $CompCallback = null, $CompParam = null, $FailCallback = null, $FailParam = null)
+{    
+    
+    if(!isset($C))
+    {
+       file_put_contents("log.txt", file_get_contents("log.txt") . '\n[' . Date() . '] >> Host Not Set For ' . $C . ';'); 
+       exit();
+    }
+
+    if(mysql_close($C))
+    {
+        call_user_func($CompCallback, $CompParam);
+    }
+    else
+    {
+        call_user_func($FailCallback, $FailParam);
+    }
+}
 
 
-function Ins($Conn, $Table, $Columns = array(), $Data = array(), $CompCallback = null, $CompParam = null, $FailCallback = null, $FailParam = null)
+
+function Ins($Conn, $Table, $Columns = array(), $Data = array(), $CompCallback = null, $CompParam = "", $FailCallback = null, $FailParam = null)
 {
     $SQL = "INSERT INTO `$Table` (";
 
@@ -78,13 +97,20 @@ function Ins($Conn, $Table, $Columns = array(), $Data = array(), $CompCallback =
 
     if($Conn->query($SQL) === true)
     {
-        if($Callback != null)
+        if($CompCallback != null)
         {
-            call_user_func($Callback);
-        }        
+            call_user_func($CompCallback, $CompParam);
+        }   
+    }
+    else
+    {
+        if($FailCallback != null)
+        {
+            call_user_func($FailCallback, $FailParam);
+        }
     }
 
-    echo $SQL;
+    
 
 }
 
@@ -150,7 +176,7 @@ function Get($Conn, $Table, $Columns = array(), $Where = array(), $CompCallback 
         }  
     }
 
-    echo $SQL;
+    
 
 }
 
@@ -207,7 +233,7 @@ function Upd($Conn, $Table, $Columns = array(), $Data = array(), $Where = array(
         }  
     }
 
-    echo $SQL;
+    
 
 }
 
@@ -249,7 +275,7 @@ function Del($Conn, $Table, $Where = array(), $CompCallback = null, $CompParam =
         }  
     }
 
-    echo $SQL;
+    
 
 }
 
