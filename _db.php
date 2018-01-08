@@ -42,7 +42,7 @@ function Connect($C, $L)
 
 
 
-function Ins($Conn, $Table, $Columns = array(), $Data = array(), $Callback = null)
+function Ins($Conn, $Table, $Columns = array(), $Data = array(), $CompCallback = null, $CompParam = null, $FailCallback = null, $FailParam = null)
 {
     $SQL = "INSERT INTO `$Table` (";
 
@@ -154,6 +154,104 @@ function Get($Conn, $Table, $Columns = array(), $Where = array(), $CompCallback 
 
 }
 
+
+function Upd($Conn, $Table, $Columns = array(), $Data = array(), $Where = array(), $CompCallback = null, $CompParam = null, $FailCallback = null, $FailParam = null)
+{
+    $SQL = "UPDATE `$Table` SET ";
+
+    for ($i = 0; $i <= count($Columns) - 1; $i++) {
+        
+        if($i != count($Columns) - 1)
+        {
+            $SQL = $SQL . "`$Columns[$i]`" . " = '$Data[$i]',";
+        }
+        else
+        {
+            $SQL = $SQL . "`$Columns[$i]`" . " = '$Data[$i]'";
+        }
+
+        
+
+    }
+
+    if(count($Where) > 0)
+    {
+        $SQL = $SQL . "WHERE ";
+
+        foreach($Where as $W)
+        {
+            if($W != end($Where))
+            {
+                $SQL = $SQL . "$W AND";
+            }
+            else
+            {
+                $SQL = $SQL . "$W";
+            }
+                
+        }
+    }
+
+    if($Conn->query($SQL) === true)
+    {
+        if($CompCallback != null)
+        {
+            call_user_func($CompCallback, $CompParam);
+        }        
+    }
+    else
+    {
+        if($FailCallback != null)
+        {
+            call_user_func($FailCallback, $FailParam);
+        }  
+    }
+
+    echo $SQL;
+
+}
+
+
+function Del($Conn, $Table, $Where = array(), $CompCallback = null, $CompParam = null, $FailCallback = null, $FailParam = null)
+{
+    $SQL = "DELETE FROM `$Table` ";
+
+    if(count($Where) > 0)
+    {
+        $SQL = $SQL . "WHERE ";
+
+        foreach($Where as $W)
+        {
+            if($W != end($Where))
+            {
+                $SQL = $SQL . "$W AND";
+            }
+            else
+            {
+                $SQL = $SQL . "$W";
+            }
+                
+        }
+    }
+
+    if($Conn->query($SQL) === true)
+    {
+        if($CompCallback != null)
+        {
+            call_user_func($CompCallback, $CompParam);
+        }        
+    }
+    else
+    {
+        if($FailCallback != null)
+        {
+            call_user_func($FailCallback, $FailParam);
+        }  
+    }
+
+    echo $SQL;
+
+}
 
 
 

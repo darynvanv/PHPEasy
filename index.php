@@ -3,11 +3,11 @@ require '_packer.php';
 
 $Co = Connect($Conn, true);
 
-print_r(Get($Co, "testable", array("name", "password"), array("`id` = 1"), 'Ec', 'Ez'));
+Del($Co, "testable", array("`id` = 2"), 'Ec');
 
-function Ec($S)
+function Ec()
 {
-    echo $S;
+    echo "Done!";
 }
 
 ?>
