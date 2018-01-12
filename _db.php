@@ -61,7 +61,7 @@ function Close($C, $L, $CompCallback = null, $CompParam = null, $FailCallback = 
 
 
 
-function Ins($Conn, $Table, $Columns = array(), $Data = array(), $CompCallback = null, $CompParam = "", $FailCallback = null, $FailParam = null)
+function Ins($Conn, $Table, $Columns = array(), $Data = array(), $CompCallback = null, $CompParam = "", $FailCallback = null, $FailParam = null, $VerboseSQL = false)
 {
     $SQL = "INSERT INTO `$Table` (";
 
@@ -82,18 +82,26 @@ function Ins($Conn, $Table, $Columns = array(), $Data = array(), $CompCallback =
 
     foreach($Data as $D)
     {
-        if($D != end($Data))
+        if(empty($D))
         {
-            $SQL = $SQL . "'$D',";
+            $SQL = $SQL . "'',";
         }
         else
         {
-            $SQL = $SQL . "'$D'";
+            $SQL = $SQL . "'$D',";
         }
-            
+
+        
     }
+    $SQL = substr($SQL, 0, -1);
 
     $SQL = $SQL . ")";
+
+
+    if($VerboseSQL)
+    {
+        echo $SQL;
+    }
 
     if($Conn->query($SQL) === true)
     {
@@ -114,13 +122,16 @@ function Ins($Conn, $Table, $Columns = array(), $Data = array(), $CompCallback =
 
 }
 
-function Get($Conn, $Table, $Columns = array(), $Where = array(), $CompCallback = null, $CompParam = null, $FailCallback = null, $FailParam = null)
+function Get($Conn, $Table, $Columns = array(), $Where = array(), $CompCallback = null, $CompParam = null, $FailCallback = null, $FailParam = null, $Verbose = false)
 {
     $SQL = "SELECT ";
 
     foreach($Columns as $C)
     {
-        if($C != end($Columns))
+        if($C == "*")
+        {
+            $SQL = $SQL . "*";
+        } else if($C != end($Columns))
         {
             $SQL = $SQL . "`$C`,";
         }
@@ -141,7 +152,7 @@ function Get($Conn, $Table, $Columns = array(), $Where = array(), $CompCallback 
         {
             if($W != end($Where))
             {
-                $SQL = $SQL . "$W AND";
+                $SQL = $SQL . "$W AND ";
             }
             else
             {
@@ -152,6 +163,12 @@ function Get($Conn, $Table, $Columns = array(), $Where = array(), $CompCallback 
     }
 
     $SQL = $SQL . "";
+
+    if($Verbose)
+    {
+        echo $SQL;
+    }
+
     $result = $Conn->query($SQL);
     if($result->num_rows > 0)
     {

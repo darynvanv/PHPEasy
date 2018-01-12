@@ -5,11 +5,13 @@
     // Database Settings;
     // You can create multiple Database connections below:
 
-    $Conn = new Connection();
-    $Conn->Host = "localhost";
-    $Conn->User = "root";
-    $Conn->Pass = "";
-    $Conn->DB = "test";
+    $Con = new Connection();
+    $Con->Host = "localhost";
+    $Con->User = "root";
+    $Con->Pass = "";
+    $Con->DB = "admium";
+
+    $Conn = Connect($Con, false);
     // PLEASE NOTE: Connection variable names must be unique;
 
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
